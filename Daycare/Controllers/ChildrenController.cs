@@ -24,7 +24,7 @@ namespace Daycare.Controllers
             try
             {
                 var childrens = await services.GetChildrens_Data();
-                return Ok(childrens);
+                return Ok(childrens ?? new List<Children>());
             }
             catch(Exception ex)
             {

@@ -27,6 +27,13 @@ namespace Daycare
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowReactApp", builder =>
+                    builder.WithOrigins("http://localhost:3002")
+                           .AllowAnyHeader()
+                           .AllowAnyMethod());
+            });
             services.AddControllers();
             services.AddTransient<IChildrenServices, ChildrenServices>();
 
@@ -44,6 +51,8 @@ namespace Daycare
             }
 
             app.UseRouting();
+
+            app.UseCors("AllowReactApp");
 
             app.UseAuthorization();
 
